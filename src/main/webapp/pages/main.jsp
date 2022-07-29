@@ -4,10 +4,9 @@
 <%
     List<User> staffListObject = (List<User>) session.getAttribute("staffObjectList");
     Integer registerResult = (Integer) session.getAttribute("result");
-    Integer userid = (Integer) session.getAttribute("userid");
     String origPath = request.getContextPath();
     session.setAttribute("path", "main.jsp");
-    session.setAttribute("userid", userid);
+    session.setAttribute("user", "staff");
 %>
 
 <html>
@@ -80,7 +79,7 @@
                 </div>
                 <div class="five wide field">
                     <label for="inputAddress">Address</label>
-                    <input name="address" type="text" id="inputAddress" placeholder="Address" required="required">
+                    <input name="address" type="text" id="inputAddress" placeholder="Address"  required="required" readonly="readonly">
                 </div>
                 <div class="two wide field">
                     <label>Gender</label>
@@ -147,7 +146,7 @@
                                         "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + user.getUserid() + ")'>delete</button> " +
                                         "</div> " +
                                         "<div class=field>" +
-                                        "<input background: transparent; border: none; cursor: pointer; color: #4183c4' type='submit' value='update'/>" +
+                                        "<a background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-profile.jsp?userid=" + user.getUserid() +"'>edit</a>" +
                                         "</div>" +
                                         "</div>" +
                                         "</td>");

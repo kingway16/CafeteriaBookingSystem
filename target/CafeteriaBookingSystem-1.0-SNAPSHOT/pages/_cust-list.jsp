@@ -5,6 +5,8 @@
     List<User> custListObject = (List<User>) session.getAttribute("CustomerList");
     String origPath = (String) request.getContextPath();
     session.setAttribute("path", "cust_list.jsp");
+    session.setAttribute("user", "customer");
+
 %>
 <html>
 <head>
@@ -69,7 +71,7 @@
                                "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + user.getUserid() + ")'>delete</button> " +
                                "</div> " +
                                "<div class=field>" +
-                               "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onEditAction(" + user.getUserid() + ")'> edit </button> " +
+                               "<a style='background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-customer.jsp?userid=" + user.getUserid() +"' > edit </a> " +
                                "</div>" +
                                "</div>" +
                                "</td>");

@@ -1,7 +1,6 @@
 package com.controllers.order;
 
 import com.models.Order;
-import com.models.User;
 import com.utils.DBConnection;
 
 import javax.servlet.ServletException;
@@ -30,6 +29,10 @@ public class GetStaffOrder extends HttpServlet {
         System.out.println("id:" + id);
 
         if(id.equals(null)) {
+            response.sendRedirect(request.getContextPath() + "/");
+        }
+        else
+        {
             try {
                 Connection con = DBConnection.OpenCon();
                 List<Order> result = doSelectedOrderInfo(Integer.parseInt(id), con);
@@ -37,14 +40,9 @@ public class GetStaffOrder extends HttpServlet {
                 System.out.println("result:" + result);
                 session.setAttribute("orderList", result);
                 response.sendRedirect(request.getContextPath() + "/pages/_staff.jsp");
-
             } catch (SQLException ex) {
             } catch (ClassNotFoundException ex) {
             }
-        }
-        else
-        {
-            response.sendRedirect(request.getContextPath() + "/");
         }
     }
 

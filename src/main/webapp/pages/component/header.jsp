@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: limwa
-  Date: 7/23/2022
-  Time: 4:13 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -25,6 +18,7 @@
         <a class="item" href="<%= request.getContextPath() %>/pages/_cust-list.jsp">Manage Customers</a>
         <a class="item" href="<%= request.getContextPath() %>/pages/_dishes-list.jsp">Manage Dishes</a>
         <a class="item" href="<%= request.getContextPath() %>/pages/_book-list.jsp">Bookings</a>
+        <a class="item" href="<%= request.getContextPath() %>/pages/_view-report.jsp">Collect Payment</a>
         <div class="right menu">
             <a class="item" onclick="redirectToLoginPage('<%=request.getContextPath()%>')">Log out</a>
         </div>

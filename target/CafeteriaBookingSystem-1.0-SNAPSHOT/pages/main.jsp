@@ -4,10 +4,9 @@
 <%
     List<User> staffListObject = (List<User>) session.getAttribute("staffObjectList");
     Integer registerResult = (Integer) session.getAttribute("result");
-    Integer userid = (Integer) session.getAttribute("userid");
     String origPath = request.getContextPath();
     session.setAttribute("path", "main.jsp");
-    session.setAttribute("userid", userid);
+    session.setAttribute("user", "staff");
 %>
 
 <html>
@@ -80,7 +79,7 @@
                 </div>
                 <div class="five wide field">
                     <label for="inputAddress">Address</label>
-                    <input name="address" type="text" id="inputAddress" placeholder="Address" required="required">
+                    <input name="address" type="text" id="inputAddress" placeholder="Address"  required="required" readonly="readonly">
                 </div>
                 <div class="two wide field">
                     <label>Gender</label>
@@ -139,6 +138,7 @@
                         if(staffListObject != null){
                             for( User user : staffListObject)
                             {
+                                out.println("<form action='" + str + "/staff/admin-update?userid=' method='POST'>");
                                 out.println("<tr>");
                                 out.println("<td> " +
                                         "<div class='two fields'> " +
@@ -146,12 +146,12 @@
                                         "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + user.getUserid() + ")'>delete</button> " +
                                         "</div> " +
                                         "<div class=field>" +
-                                        "<a href='" + origPath + "/pages/_staff-profile.jsp?userid=" + user.getUserid() + "&path=main.jsp' background: transparent; border: none; cursor: pointer; color: #4183c4' >submit</button> " +
+                                        "<a background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-profile.jsp?userid=" + user.getUserid() +"'>edit</a>" +
                                         "</div>" +
                                         "</div>" +
                                         "</td>");
                                 out.println("<td>" + user.getUserid() + "</td>");
-                                out.println("<td> <input type='text' name='userid' value='" + user.getName() + "'/></td>");
+                                out.println("<td> <input type='text' name='username' value='" + user.getName() + "'/></td>");
                                 out.println("<td> <input type='text' name='email' value='" + user.getEmail() + "' /></td>");
                                 out.println("<td> <input type='text' name='dob' value='" + user.getDob() + "'/></td>");
                                 out.println("<td> <input type='text' name='gender' value='" + user.getGender() + "'/></td>");
@@ -159,6 +159,7 @@
                                 out.println("<td> <input type='text' name='telno' value='" + user.getTelno() + "'/></td>");
                                 out.println("<td>" + user.getCreationDate() + "</td>");
                                 out.println("</tr>");
+                                out.println("</form>");
                             }
                         }
                     %>
