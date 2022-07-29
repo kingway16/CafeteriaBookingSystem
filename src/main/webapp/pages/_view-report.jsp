@@ -45,7 +45,7 @@
             out.println("<form>");
             out.println("<tr>");
             out.println("<td> " +
-                    "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onPrintAction'>hello</button>" +
+                    "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onPrintAction'>print</button>" +
                     "</td>");
             out.println("<td> <input type='text' id='id' value='" + payment.getId() + "'/></td>");
             out.println("<td> <input type='text' id='bookingId' value='" + payment.getBookingId() + "' /></td>");
