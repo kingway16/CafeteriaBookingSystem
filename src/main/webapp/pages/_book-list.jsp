@@ -56,17 +56,17 @@
                     for( Booking booking : bookingListObject)
                     {
                         out.println("<tr>");
-                        out.println("<td>B00" + booking.getBookingid() + "</td>");
-                        out.println("<td>" + booking.getName() + "</td>");
+                        out.println("<td>B00" + booking.getBookingId() + "</td>");
+                        out.println("<td>" + booking.getSysUser().getName() + "</td>");
                         out.println("<td>" + booking.getRating() + "</td>");
-                        out.println("<td>" + booking.getDishname() + "</td>");
+                        out.println("<td>" + booking.getDishesId().getDishesName() + "</td>");
                         out.println("<td>" + booking.getFeedback() + "</td>");
-                        out.println("<td>RM " + booking.getTotal() + "</td>");
+                        out.println("<td>RM " + booking.getDishesId().getDishesName() + "</td>");
                         out.println("<td>" + booking.getCreationDate() + "</td>");
                         if ( booking.getPending().equals("Y"))
                         {
                             out.println("<td>Yes</td>");
-                            out.println("<td><a href='_booking-assign.jsp?id=" + booking.getBookingid() + "'>assign</a></td>");
+                            out.println("<td><a href='_booking-assign.jsp?id=" + booking.getBookingId() + "'>assign</a></td>");
                         }
                         else if ( booking.getPending().equals("O"))
                         {

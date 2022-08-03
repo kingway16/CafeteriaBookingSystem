@@ -1,8 +1,8 @@
-<%@ page import="com.models.User" %>
+<%@ page import="com.models.SysUser" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<User> custListObject = (List<User>) session.getAttribute("CustomerList");
+    List<SysUser> custListObject = (List<SysUser>) session.getAttribute("CustomerList");
     String origPath = (String) request.getContextPath();
     session.setAttribute("path", "cust_list.jsp");
     session.setAttribute("user", "customer");
@@ -62,20 +62,20 @@
             <tbody>
            <%
                if(custListObject != null){
-                   for( User user : custListObject)
+                   for( SysUser user : custListObject)
                    {
                        out.println("<tr>");
                        out.println("<td> " +
                                "<div class='two fields'> " +
                                "<div class=field>" +
-                               "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + user.getUserid() + ")'>delete</button> " +
+                               "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + user.getUserId() + ")'>delete</button> " +
                                "</div> " +
                                "<div class=field>" +
-                               "<a style='background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-customer.jsp?userid=" + user.getUserid() +"' > edit </a> " +
+                               "<a style='background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-customer.jsp?userid=" + user.getUserId() +"' > edit </a> " +
                                "</div>" +
                                "</div>" +
                                "</td>");
-                       out.println("<td>C00" + user.getUserid() + "</td>");
+                       out.println("<td>C00" + user.getUserId() + "</td>");
                        out.println("<td>" + user.getName() + "</td>");
                        out.println("<td>" + user.getEmail() + "</td>");
                        out.println("<td>" + user.getDob() + "</td>");

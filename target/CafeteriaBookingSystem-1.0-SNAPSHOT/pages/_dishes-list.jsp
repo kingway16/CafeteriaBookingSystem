@@ -1,4 +1,4 @@
-<%@ page import="com.models.Dish" %>
+<%@ page import="com.models.Dishes" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: limwa
@@ -6,7 +6,7 @@
   Time: 1:27 AM
   To change this template use File | Settings | File Templates.
 --%>
-<% List<Dish> dishesList = (List<Dish>) session.getAttribute("dishesList");%>
+<% List<Dishes> dishesList = (List<Dishes>) session.getAttribute("dishesList");%>
 <% session.setAttribute("path", "_dishes-list.jsp");%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -76,16 +76,16 @@
                     <tbody>
                     <%
                         if(dishesList != null){
-                            for( Dish dish : dishesList)
+                            for( Dishes dish : dishesList)
                             {
                                 out.println("<tr>");
                                 out.println("<td> " +
-                                        "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + dish.getId() + ")'>delete</button> " +
+                                        "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + dish.getDishesId() + ")'>delete</button> " +
                                         "</td>");
-                                out.println("<td>" + "D00" + dish.getId() + "</td>");
-                                out.println("<td>" + dish.getName() + "</td>");
+                                out.println("<td>" + "D00" + dish.getDishesId() + "</td>");
+                                out.println("<td>" + dish.getDishesName() + "</td>");
                                 out.println("<td>" + dish.getIngredients() + "</td>");
-                                out.println("<td>" + dish.getPrice() + "</td>");
+                                out.println("<td>" + dish.getTotal() + "</td>");
                                 out.println("</tr>");
                             }
                         }

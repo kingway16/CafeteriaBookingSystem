@@ -1,9 +1,9 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.models.Order" %>
+<%@ page import="com.models.SysOrder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String userid = (String) session.getAttribute("userid");
-    List<Order> orderList = (List<Order>) session.getAttribute("orderList");
+    List<SysOrder> orderList = (List<SysOrder>) session.getAttribute("orderList");
     session.setAttribute("userid", userid);
 %>
 <head>
@@ -42,20 +42,20 @@
             <tbody>
             <%
                 if(orderList != null){
-                    for( Order order : orderList)
+                    for( SysOrder order : orderList)
                     {
                         out.println("<tr>");
                         out.println("<td>O00" + order.getOrderId() + "</td>");
-                        out.println("<td>" + order.getBookingId() + "</td>");
-                        out.println("<td>" + order.getDishesName() + "</td>");
-                        out.println("<td>" + order.getNotes() + "</td>");
-                        out.println("<td>" + order.getUserName() + "</td>");
+                        out.println("<td>" + order.getBookingId().getBookingId() + "</td>");
+                        out.println("<td>" + order.getBookingId().getDishesId().getDishesName() + "</td>");
+                        out.println("<td>" + order.getBookingId().getNotes() + "</td>");
+                        out.println("<td>" + order.getBookingId().getSysUser().getName() + "</td>");
                         if ( order.getOrderStatus().equals("P"))
                         {
                             out.println("<td> Preparing... </td>");
                         }
                         out.println("<td> " +
-                                "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onUpdateStatus(" + order.getOrderId() + "," + order.getBookingId() +")'>completed</button> " +
+                                "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onUpdateStatus(" + order.getOrderId() + "," + order.getBookingId().getBookingId() +")'>completed</button> " +
                                 "</td>");
                         out.println("</tr>");
                     }

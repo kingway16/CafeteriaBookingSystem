@@ -1,7 +1,7 @@
-<%@ page import="com.models.Booking" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.models.SysOrder" %>
 <%
-    List<Booking> selectedList = (List<Booking>) session.getAttribute("selectedList");
+    List<SysOrder> selectedList = (List<SysOrder>) session.getAttribute("selectedList");
     String bookingIdParam = request.getParameter("bookingId");
     String userid = (String) session.getAttribute("userid");
     session.setAttribute("bookingId", bookingIdParam);
@@ -42,14 +42,14 @@
           <tbody>
           <%
               if(selectedList != null){
-                  for( Booking book : selectedList)
+                  for( SysOrder order : selectedList)
                   {
                       out.println("<tr>");
-                      out.println("<td>B00" + book.getBookingid() + "</td>");
-                      out.println("<td>O00" + book.getOrderid() + "</td>");
-                      out.println("<td>" + book.getName() + "</td>");
-                      out.println("<td>" + book.getRating() + "</td>");
-                      out.println("<td>" + book.getFeedback() + "</td>");
+                      out.println("<td>B00" + order.getBookingId().getBookingId() + "</td>");
+                      out.println("<td>O00" + order.getOrderId() + "</td>");
+                      out.println("<td>" + order.getBookingId().getSysUser().getName() + "</td>");
+                      out.println("<td>" + order.getBookingId().getRating() + "</td>");
+                      out.println("<td>" + order.getBookingId().getFeedback() + "</td>");
                       out.println("</tr>");
                   }
               }

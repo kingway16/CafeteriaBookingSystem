@@ -1,4 +1,4 @@
-<%@ page import="com.models.User" %>
+<%@ page import="com.models.SysUser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String name = "";
@@ -11,7 +11,7 @@
     String userid = "";
 
     String origPath = request.getContextPath();
-    User staffDetails = (User) session.getAttribute("CustomerObject");
+    SysUser staffDetails = (SysUser) session.getAttribute("CustomerObject");
     if(staffDetails != null)
     {
         name = staffDetails.getName();

@@ -1,7 +1,6 @@
 package com.controllers.customer;
 
-import com.models.Order;
-import com.models.User;
+import com.facades.SysUserFacade;
 import com.utils.DBConnection;
 
 import javax.servlet.ServletException;
@@ -9,11 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,7 +80,7 @@ public class UpdateCustomer extends HttpServlet {
             try {
                 Connection con = DBConnection.OpenCon();
                 if (name != null) {
-                    doUpdateStaffInfo(query, con);
+                    SysUserFacade.doUpdateCustomerInfo(query, con);
                 }
                 DBConnection.CloseCon(con);
                 response.sendRedirect(request.getContextPath() + "/pages/" + path);
@@ -95,9 +91,4 @@ public class UpdateCustomer extends HttpServlet {
         }
     }
 
-    public void doUpdateStaffInfo(String query, Connection con) throws SQLException, IOException, ServletException {
-        PreparedStatement statement = con.prepareStatement(query);
-        int result = statement.executeUpdate();
-        System.out.println(result);
-    }
 }

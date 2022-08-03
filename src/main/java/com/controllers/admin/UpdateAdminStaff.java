@@ -1,5 +1,6 @@
 package com.controllers.admin;
 
+import com.facades.SysUserFacade;
 import com.utils.DBConnection;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class UpdateAdminStaff extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         String id = request.getParameter("userid");
+        System.out.println("check id: " +id);
         String path = request.getParameter("path");
         String name = request.getParameter("username");
         String password = request.getParameter("password");
@@ -84,7 +85,7 @@ public class UpdateAdminStaff extends HttpServlet {
             }
             if(name != null)
             {
-                doUpdateStaffInfo(query, con);
+                SysUserFacade.doUpdateAdminInfo(query, con);
             }
             DBConnection.CloseCon(con);
             session.setAttribute("userid", id);
@@ -95,9 +96,5 @@ public class UpdateAdminStaff extends HttpServlet {
 
     }
 
-    public void doUpdateStaffInfo(String query, Connection con) throws SQLException, IOException, ServletException {
-        PreparedStatement statement = con.prepareStatement(query);
-        int result = statement.executeUpdate();
-        System.out.println(result);
-    }
+
 }

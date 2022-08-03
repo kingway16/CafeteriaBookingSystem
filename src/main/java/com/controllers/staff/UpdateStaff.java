@@ -1,7 +1,6 @@
 package com.controllers.staff;
 
-import com.models.Order;
-import com.models.User;
+import com.facades.SysUserFacade;
 import com.utils.DBConnection;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,7 +85,7 @@ public class UpdateStaff extends HttpServlet {
             }
             if(name != null)
             {
-                doUpdateStaffInfo(query, con);
+                SysUserFacade.doUpdateStaffInfo(query, con);
             }
             DBConnection.CloseCon(con);
             session.setAttribute("userid", id);
@@ -95,12 +93,5 @@ public class UpdateStaff extends HttpServlet {
 
         }
         catch (SQLException ex){} catch (ClassNotFoundException ex) {}
-
-    }
-
-    public void doUpdateStaffInfo(String query, Connection con) throws SQLException, IOException, ServletException {
-        PreparedStatement statement = con.prepareStatement(query);
-        int result = statement.executeUpdate();
-        System.out.println(result);
     }
 }

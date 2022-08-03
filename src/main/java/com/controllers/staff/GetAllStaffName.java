@@ -1,5 +1,6 @@
 package com.controllers.staff;
-import com.models.User;
+import com.facades.SysUserFacade;
+import com.models.SysUser;
 import com.utils.DBConnection;
 
 import javax.servlet.ServletException;
@@ -27,34 +28,12 @@ public class GetAllStaffName extends HttpServlet {
 
         try{
             Connection con = DBConnection.OpenCon();
-            List<User> staffObject = doSelectAllStaffObject(con);
+            List<SysUser> staffObject = SysUserFacade.doSelectAllStaffObject(con);
             DBConnection.CloseCon(con);
             session.setAttribute("staffObjectList", staffObject);
             response.sendRedirect(request.getContextPath() + "/pages/_booking-assign.jsp");
         }
         catch (SQLException ex){} catch (ClassNotFoundException ex) {}
 
-    }
-
-    public List<User> doSelectAllStaffObject(Connection con) throws SQLException {
-
-        List<User> list = new LinkedList<User>();
-        String selectAllStaffInfo = "select * from sys_user where role = 'S'";
-        PreparedStatement statement = con.prepareStatement(selectAllStaffInfo);
-        ResultSet result = statement.executeQuery();
-        while(result.next())
-        {
-            User user = new User();
-            user.setUserid(result.getInt("user_id"));
-            user.setEmail(result.getString("email"));
-            user.setName(result.getString("name"));
-            user.setAddress(result.getString("address"));
-            user.setTelno(result.getString("telno"));
-            user.setDob(result.getString("dob"));
-            user.setGender(result.getString("gender"));
-            user.setCreationDate(result.getString("creation_date"));
-            list.add(user);
-        }
-        return list;
     }
 }

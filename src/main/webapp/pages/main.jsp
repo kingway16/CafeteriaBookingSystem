@@ -1,8 +1,8 @@
-<%@ page import="com.models.User" %>
+<%@ page import="com.models.SysUser" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<User> staffListObject = (List<User>) session.getAttribute("staffObjectList");
+    List<SysUser> staffListObject = (List<SysUser>) session.getAttribute("staffObjectList");
     Integer registerResult = (Integer) session.getAttribute("result");
     String origPath = request.getContextPath();
     session.setAttribute("path", "main.jsp");
@@ -79,7 +79,7 @@
                 </div>
                 <div class="five wide field">
                     <label for="inputAddress">Address</label>
-                    <input name="address" type="text" id="inputAddress" placeholder="Address"  required="required" readonly="readonly">
+                    <input name="address" type="text" id="inputAddress" placeholder="Address"  required="required">
                 </div>
                 <div class="two wide field">
                     <label>Gender</label>
@@ -136,21 +136,21 @@
                         String str = request.getContextPath();
 
                         if(staffListObject != null){
-                            for( User user : staffListObject)
+                            for( SysUser user : staffListObject)
                             {
-                                out.println("<form action='" + str + "/staff/admin-update?userid=' method='POST'>");
+                                out.println("<form action='" + str + "/staff/delete?id=" + user.getUserId() + "&path=main.jsp' method='POST'>");
                                 out.println("<tr>");
                                 out.println("<td> " +
                                         "<div class='two fields'> " +
                                         "<div class=field>" +
-                                        "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction(" + user.getUserid() + ")'>delete</button> " +
+                                        "<input style='background: transparent; border: none; cursor: pointer; color: #4183c4' type='submit' value='delete'/> " +
                                         "</div> " +
                                         "<div class=field>" +
-                                        "<a background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-profile.jsp?userid=" + user.getUserid() +"'>edit</a>" +
+                                        "<a background: transparent; border: none; cursor: pointer; color: #4183c4' href='" + origPath + "/pages/_admin-edit-profile.jsp?userid=" + user.getUserId() +"'>edit</a>" +
                                         "</div>" +
                                         "</div>" +
                                         "</td>");
-                                out.println("<td>" + user.getUserid() + "</td>");
+                                out.println("<td>S00" + user.getUserId() + "</td>");
                                 out.println("<td> <input type='text' name='username' value='" + user.getName() + "'/></td>");
                                 out.println("<td> <input type='text' name='email' value='" + user.getEmail() + "' /></td>");
                                 out.println("<td> <input type='text' name='dob' value='" + user.getDob() + "'/></td>");
@@ -166,8 +166,6 @@
                     </tbody>
                 </table>
             </form>
-<%--    <button onclick="buildHtmlTable(<%=session.getAttribute("")%>)">reload</button>--%>
-
         </div>
 </body>
 </html>

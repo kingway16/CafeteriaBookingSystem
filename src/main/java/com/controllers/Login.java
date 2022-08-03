@@ -1,7 +1,5 @@
 package com.controllers;
 
-import com.models.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.utils.DBConnection;
-import org.json.JSONObject;
 
 
 @WebServlet(value = "/pages")

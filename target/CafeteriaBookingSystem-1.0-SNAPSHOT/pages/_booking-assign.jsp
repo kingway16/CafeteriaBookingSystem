@@ -1,4 +1,4 @@
-<%@ page import="com.models.User" %>
+<%@ page import="com.models.SysUser" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: limwa
@@ -8,7 +8,7 @@
 --%>
 <%
     String getParamId = request.getParameter("id");
-    List<User> staffListObject = (List<User>) session.getAttribute("staffObjectList");
+    List<SysUser> staffListObject = (List<SysUser>) session.getAttribute("staffObjectList");
     session.setAttribute("staffid", getParamId);
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -38,9 +38,9 @@
                     <%
                         if(staffListObject != null)
                         {
-                            for (User user: staffListObject)
+                            for (SysUser user: staffListObject)
                             {
-                                out.println("<option value='" + user.getUserid() + "'>" + user.getName() + "</option>");
+                                out.println("<option value='" + user.getUserId() + "'>" + user.getName() + "</option>");
                             }
                         }
                     %>

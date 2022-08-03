@@ -1,5 +1,6 @@
 package com.controllers.book;
 
+import com.facades.BookingFacade;
 import com.utils.DBConnection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,11 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 @WebServlet(value = "/booking/feedback")
 public class UpdateFeedback extends HttpServlet {
@@ -29,20 +26,11 @@ public class UpdateFeedback extends HttpServlet {
 
         try{
             Connection con = DBConnection.OpenCon();
-            doUpdateBookingRateAndFeedback(Integer.parseInt(rate), feedback, Integer.parseInt(bookingId), con);
+            BookingFacade.doUpdateBookingRateAndFeedback(Integer.parseInt(rate), feedback, Integer.parseInt(bookingId), con);
             DBConnection.CloseCon(con);
             response.sendRedirect(request.getContextPath() + "/pages/_customer.jsp");
 
         }
         catch (SQLException ex){} catch(ClassNotFoundException ex){}
-
-    }
-
-    public void doUpdateBookingRateAndFeedback(Integer rate, String feedback, Integer bookingId, Connection con) throws SQLException, IOException, ServletException {
-
-        String selectAllBookingInfo = "UPDATE booking SET rating = " + rate + " , feedback = '" + feedback + "' WHERE booking_id =" + bookingId;
-        PreparedStatement statement = con.prepareStatement(selectAllBookingInfo.toString());
-        int result = statement.executeUpdate();
-        System.out.println(result);
     }
 }

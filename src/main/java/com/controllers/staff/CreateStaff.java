@@ -1,6 +1,7 @@
 package com.controllers.staff;
 
 
+import com.facades.SysUserFacade;
 import com.utils.DBConnection;
 
 import javax.servlet.ServletException;
@@ -38,11 +39,12 @@ public class CreateStaff extends HttpServlet {
         telno = request.getParameter("telno");
         gender = request.getParameter("gender");
 
-        String genInputDate = onGenSelectedDate(dobDate, dobMonth, dobYear);
+        System.out.println(email + name + password + dobDate + dobMonth + dobYear);
+        String genInputDate = SysUserFacade.onGenSelectedDate(dobDate, dobMonth, dobYear);
 
         try{
             Connection con = DBConnection.OpenCon();
-            int result = doInsertNewStaffInfo(email, name, password, address, telno, genInputDate, gender, con);
+            int result = SysUserFacade.doInsertNewStaffInfo(email, name, password, address, telno, genInputDate, gender, con);
             DBConnection.CloseCon(con);
             session.setAttribute("result", result);
             response.sendRedirect(request.getContextPath() + "/pages/main.jsp");
@@ -52,16 +54,5 @@ public class CreateStaff extends HttpServlet {
 
     }
 
-    public int doInsertNewStaffInfo(String email,String name,String password,String address,String telno,String dob,String gender,Connection con) throws SQLException {
-        Date date = new Date();
-        String insertNewStaffInfo = "INSERT INTO sys_user (email, password, role, name, address, telno, dob, gender, creation_date)VALUES ('" + email + "', '" + password + "','S', '" + name + "', '" + address + "', '" + telno + "','" + dob + "', '" + gender + "','" + date.toString() + "')";
-        PreparedStatement statement = con.prepareStatement(insertNewStaffInfo.toString());
-        int result = statement.executeUpdate();
-        return result;
-    }
 
-    public String onGenSelectedDate(String date, String month, String year)
-    {
-        return date + month + year;
-    }
 }

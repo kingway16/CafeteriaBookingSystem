@@ -1,9 +1,9 @@
 package com.controllers.dish;
 
 
-import com.models.Dish;
+import com.facades.DishesFacade;
+import com.models.Dishes;
 import com.utils.DBConnection;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 @WebServlet(value = "/dish/get")
@@ -33,7 +29,7 @@ public class GetDishes extends HttpServlet {
 
         try{
             con = DBConnection.OpenCon();
-            List<Dish> result = onDisplayDishesInfo(con);
+            List<Dishes> result = DishesFacade.onDisplayDishesInfo(con);
             DBConnection.CloseCon(con);
             session.setAttribute("dishesList", result);
             response.sendRedirect(request.getContextPath() + "/pages/" + path);
@@ -41,22 +37,6 @@ public class GetDishes extends HttpServlet {
         catch (SQLException ex){} catch(ClassNotFoundException ex){}
     }
 
-    public List<Dish> onDisplayDishesInfo(Connection con) throws SQLException {
-        List<Dish> list = new LinkedList<Dish>();
-        String insertNewDishInfo = "select * from dishes";
-        PreparedStatement statement = con.prepareStatement(insertNewDishInfo);
-        ResultSet reader = statement.executeQuery();
-        while(reader.next())
-        {
-            Dish dish = new Dish();
-            dish.setId(reader.getInt("dishes_id"));
-            dish.setName(reader.getString("dishes_name"));
-            dish.setIngredients(reader.getString("ingredients"));
-            dish.setPrice(reader.getInt("total"));
-            list.add(dish);
-        }
-        System.out.println(list);
-        return list;
-    }
+
 
 }

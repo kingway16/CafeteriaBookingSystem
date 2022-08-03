@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.models.Booking" %>
-<%@ page import="com.models.Dish" %><%--
+<%@ page import="com.models.Dishes" %><%--
   Created by IntelliJ IDEA.
   User: limwa
   Date: 7/23/2022
@@ -10,7 +10,7 @@
 <%
     String userid = (String) session.getAttribute("userid");
     List<Booking> bookingList = (List<Booking>) session.getAttribute("bookingList");
-    List<Dish> dishesList = (List<Dish>) session.getAttribute("dishesList");
+    List<Dishes> dishesList = (List<Dishes>) session.getAttribute("dishesList");
     session.setAttribute("path", "_customer.jsp");
     session.setAttribute("userid", userid);
 %>
@@ -52,9 +52,9 @@
                         <select class="ui fluid search dropdown" name="dishId">
                             <%
                                 if(dishesList != null){
-                                    for (Dish dish: dishesList)
+                                    for (Dishes dish: dishesList)
                                     {
-                                        out.println("<option value='" + dish.getId()+ "'>" + dish.getName() + " - RM " + dish.getPrice() +"</option>");
+                                        out.println("<option value='" + dish.getDishesId()+ "'>" + dish.getDishesName() + " - RM " + dish.getTotal() +"</option>");
                                     }
                                 }
                             %>
@@ -110,10 +110,10 @@
                             for( Booking booking : bookingList)
                             {
                                 out.println("<tr>");
-                                out.println("<td>" + booking.getBookingid() + "</td>");
-                                out.println("<td>" + booking.getDishname() + "</td>");
+                                out.println("<td>" + booking.getBookingId() + "</td>");
+                                out.println("<td>" + booking.getDishesId().getDishesId() + "</td>");
                                 out.println("<td>" + booking.getNotes() + "</td>");
-                                out.println("<td>" + booking.getTotal() + "</td>");
+                                out.println("<td>" + booking.getDishesId().getTotal() + "</td>");
                                 out.println("<td>" + booking.getCreationDate() + "</td>");
                                 if( booking.getPending().equals("Y"))
                                 {
@@ -121,10 +121,10 @@
                                     out.println("<td> " +
                                             "<div class='two fields'>" +
                                             "<div class='field'>" +
-                                            "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction('" + booking.getBookingid() + ")'>delete</button>" +
+                                            "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onDeleteAction('" + booking.getBookingId() + ")'>delete</button>" +
                                             "</div>" +
                                             "<div class='field'>" +
-                                            "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onUpdateAction(" + booking.getBookingid() + ")'>update</button>" +
+                                            "<button style='background: transparent; border: none; cursor: pointer; color: #4183c4' onclick='onUpdateAction(" + booking.getBookingId() + ")'>update</button>" +
                                             "</div>" +
                                             "</div>" +
                                             "</td>");
@@ -138,7 +138,7 @@
                                     out.println("<td>Completed</td>");
                                     if(booking.getFeedback() == null || booking.getRating() == null)
                                     {
-                                        out.println("<td><a href='_service-rate.jsp?bookingId=" + booking.getBookingid() + "'>rate</a></td>");
+                                        out.println("<td><a href='_service-rate.jsp?bookingId=" + booking.getBookingId() + "'>rate</a></td>");
                                     }
                                     else
                                     {
